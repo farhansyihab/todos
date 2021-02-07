@@ -1,0 +1,22 @@
+{
+  "rencana": [
+    {
+      "id": 1,
+      "judul": "belajar Vue",
+      "keterangan": "Belajar bikin template, props, data, method dan lainnya",
+      "selesai": false
+    },
+    {
+      "id": 2,
+      "judul": "Belajar Vue CLI",
+      "keterangan": "Vue CLI agak berbeda sedikit dengan Vue CDN",
+      "selesai": false
+    },
+    {
+      "id": 3,
+      "judul": "Belajar Vuex",
+      "keterangan": "Penyimpanan fungsi dan data secara sentral",
+      "selesai": false
+    }
+  ]
+}
