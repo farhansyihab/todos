@@ -4,6 +4,12 @@
       <v-card-title class="justify-center">List Rencana</v-card-title>
       <v-card-text>
         <p>Silahkan membuat list Rencana Anda di Aplikasi ini</p>
+        <p>Karena masih menggunakan fake databse json-server</p>
+        <p>
+          Silahkan mengaktifkan json-server dengan cara menggetikkan baris
+          berikut ini pada root source (bukan src tapi diatasnya)
+        </p>
+        <p><code>json-server --watch tmpData/data.json</code></p>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum
           alias nisi placeat illo provident, expedita architecto maiores quia
