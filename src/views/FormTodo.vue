@@ -67,7 +67,9 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("rencana/ambilData");
+    this.$store.dispatch("rencana/ambilData").then((response) => {
+      console.log(`ini adalah response ${response}`);
+    });
   },
 };
 </script>

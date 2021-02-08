@@ -47,24 +47,16 @@ export default {
   }),
   methods: {
     tampilkanList: function () {
-      this.$store.dispatch("rencana/ambilData");
-      setTimeout(this.tampilkan(), 750);
-    },
-    tampilkan: function () {
-      this.showList = !this.showList;
       this.loadData();
+      this.showList = !this.showList;
     },
-    loadData: function () {
-      const datanya = this.$store.state.rencana.rencana;
-      if (Object.keys(datanya).length > 0) {
-        this.rencana = datanya;
-      } else {
-        console.log("data belum di-load");
-      }
+    loadData: async function () {
+      let datanya;
+      await this.$store.dispatch("rencana/ambilData").then(function (response) {
+        datanya = response;
+      });
+      this.rencana = datanya;
     },
-  },
-  beforeCreate() {
-    this.$store.dispatch("rencana/ambilData");
   },
 };
 </script>

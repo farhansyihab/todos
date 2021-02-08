@@ -12,13 +12,17 @@ const rencana = {
   },
   actions: {
     ambilData({ commit }) {
-      fetch('http://localhost:3000/rencana')
-        .then((response) => response.json())
-        .then((json) => {
-          commit('setData', json);
-          // console.log(json);
-        })
-        .catch((err) => console.log(err.message));
+      return new Promise((resolve, reject) => {
+        fetch('http://localhost:3000/rencana')
+          .then((response) => response.json())
+          .then((json) => {
+            commit('setData', json);
+            resolve(json);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
     },
     postData({ dispatch }, objData) {
       const datanya = JSON.stringify(objData);

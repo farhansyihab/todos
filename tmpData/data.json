@@ -17,6 +17,12 @@
       "judul": "Belajar Vuex",
       "keterangan": "Penyimpanan fungsi dan data secara sentral",
       "selesai": false
+    },
+    {
+      "id": 4,
+      "judul": "Belajar Vuetify",
+      "keterangan": "Sesegera mungkin harus terbiasa dengan vuetify, sebelum bulan Maret",
+      "selesai": false
     }
   ]
 }
