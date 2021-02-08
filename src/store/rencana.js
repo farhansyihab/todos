@@ -1,3 +1,4 @@
+import httpFetch from '../helper/httpFetch';
 const rencana = {
   namespaced: true,
   state: {
@@ -13,15 +14,14 @@ const rencana = {
   actions: {
     ambilData({ commit }) {
       return new Promise((resolve, reject) => {
-        fetch('http://localhost:3000/rencana')
-          .then((response) => response.json())
-          .then((json) => {
-            commit('setData', json);
-            resolve(json);
+        const url = 'http://localhost:3000/rencana';
+        const HTTP = new httpFetch(url, 'GET');
+        HTTP.executeGet()
+          .then((response) => {
+            commit('setData', response);
+            resolve(response);
           })
-          .catch((err) => {
-            reject(err);
-          });
+          .catch((response) => console.log(`Error : ${response}`));
       });
     },
     postData({ dispatch }, objData) {
