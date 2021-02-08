@@ -3,6 +3,12 @@
     <v-card>
       <v-card-title class="justify-center">Halaman About Us</v-card-title>
       <v-card-text>
+        <p>Applikasi ini dibuat dalam rangka belajar VueJs, Vuex dan Vuetify</p>
+        <p>
+          Mohon saran dan sumbangsih, berupa cara, tips dan trik dalam pembuatan
+          applikasi berbasis VueJs
+        </p>
+        <p>Terima kasih</p>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas
           sapiente aperiam quo omnis ut nostrum modi labore quisquam adipisci
