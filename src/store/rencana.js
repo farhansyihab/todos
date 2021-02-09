@@ -24,7 +24,7 @@ const rencana = {
           .catch((response) => console.log(`Error : ${response}`));
       });
     },
-    postData({ dispatch }, objData) {
+    post({ dispatch }, objData) {
       const datanya = JSON.stringify(objData);
       // console.log(`ini adalah data yang samapai di vuex ${datanya}`);
       // console.log(`ini adalah obj yang samapai di vuex ${objData}`);
@@ -44,7 +44,7 @@ const rencana = {
           console.error('Error:', error);
         });
     },
-    updatetData({ dispatch }, objData) {
+    update({ dispatch }, objData) {
       const datanya = JSON.stringify(objData);
       // console.log(`ini adalah data yang samapai di vuex ${datanya}`);
       // console.log(`ini adalah obj yang samapai di vuex ${objData}`);
@@ -64,7 +64,7 @@ const rencana = {
           console.error('Error:', error);
         });
     },
-    deleteData({ dispatch }, objData) {
+    delete({ dispatch }, objData) {
       console.log(`ini adalah obj yang samapai di vuex ${objData.data.id}`);
       fetch('http://localhost:3000/rencana/' + objData.data.id, {
         method: 'DELETE',

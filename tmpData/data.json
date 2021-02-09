@@ -1,10 +1,10 @@
 {
   "rencana": [
     {
-      "id": 1,
       "judul": "belajar Vue",
       "keterangan": "Belajar bikin template, props, data, method dan lainnya",
-      "selesai": false
+      "selesai": false,
+      "id": 1
     },
     {
       "id": 2,

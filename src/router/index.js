@@ -3,7 +3,6 @@ import VueRouter from 'vue-router';
 import Depan from '../views/Depan.vue';
 import About from '../views/About.vue';
 import FormTodo from '../views/FormTodo.vue';
-import UpdateTodo from '../views/UpdateTodo.vue';
 
 Vue.use(VueRouter);
 
@@ -26,7 +25,7 @@ const routes = [
   {
     path: '/rencana/:id',
     name: 'UpdateTodo',
-    component: UpdateTodo,
+    component: FormTodo,
   },
 ];
 

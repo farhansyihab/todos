@@ -3,6 +3,15 @@
     <v-card>
       <v-card-title>Tambah Rencana</v-card-title>
       <v-form>
+        <v-row v-if="mode === 'editMode'">
+          <v-col cols="12" md="12">
+            <v-text-field
+              v-model="todos.id"
+              label="Id Rencana"
+              disabled
+            ></v-text-field>
+          </v-col>
+        </v-row>
         <v-row>
           <v-col cols="12" md="12">
             <v-text-field
@@ -35,15 +44,22 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col md="3" sm="4" xs="5">
+          <v-col md="3" sm="4" xs="5" v-if="mode === 'addMode'">
             <v-btn @click="simpanData(todos)">Simpan</v-btn>
           </v-col>
-          <v-col md="3" sm="4" xs="5">
+          <v-col md="3" sm="4" xs="5" v-if="mode === 'editMode'">
+            <v-btn @click="updateData(todos)">Simpan</v-btn>
+          </v-col>
+          <v-col md="3" sm="4" xs="5" v-if="mode === 'editMode'">
+            <v-btn @click="hapusData(todos)">Hapus</v-btn>
+          </v-col>
+          <v-col md="3" sm="4" xs="5" v-if="mode === 'addMode'">
             <v-btn>Batal</v-btn>
           </v-col>
         </v-row>
       </v-form>
     </v-card>
+    <div hidden>{{ loadData }}</div>
   </v-container>
 </template>
 
@@ -58,17 +74,47 @@ export default {
         keterangan: null,
         selesai: false,
       },
+      mode: "addMode",
     };
+  },
+  computed: {
+    loadData() {
+      if (this.$route.params.id) {
+        const id = this.$route.params.id;
+        const idnya = parseInt(id) - 1;
+        const datanya = this.$store.state.rencana.rencana;
+        if (Object.keys(datanya).length > 0) {
+          this.todos.id = datanya[idnya].id;
+          this.todos.judul = datanya[idnya].judul;
+          this.todos.keterangan = datanya[idnya].keterangan;
+          this.todos.selesai = datanya[idnya].selesai;
+          this.mode = "editMode";
+        } else {
+          console.log("data belum di-load");
+        }
+      } else {
+        this.todos.judul = null;
+        this.todos.keterangan = null;
+        this.todos.selesai = null;
+        this.mode = "addMode";
+      }
+    },
   },
   methods: {
     simpanData(data) {
-      // console.log(`datanya : ${JSON.stringify(data)}`);
-      this.$store.dispatch("rencana/postData", { data });
+      this.$store.dispatch("rencana/post", { data });
+    },
+    updateData(data) {
+      this.$store.dispatch("rencana/update", { data });
+    },
+    hapusData(data) {
+      this.$store.dispatch("rencana/delete", { data });
+      this.$router.push("FormTodo");
     },
   },
   created() {
     this.$store.dispatch("rencana/ambilData").then((response) => {
-      console.log(`ini adalah response ${response}`);
+      console.log(`ini adalah data response ${JSON.stringify(response)}`);
     });
   },
 };
