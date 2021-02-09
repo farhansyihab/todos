@@ -81,13 +81,8 @@ const rencana = {
   },
   getters: {
     getTodoById: (state) => (id) => {
-      const intId = parseInt(id.id);
+      const intId = parseInt(JSON.stringify(id));
       const objData = state.rencana.find((rencana) => rencana.id === intId);
-      console.log(
-        `id = ${intId} dan object data ${JSON.stringify(
-          objData
-        )} dan id aslinya ${JSON.stringify(id)} dan ambil dari object ${id.id}`
-      );
       return objData;
     },
   },

@@ -81,13 +81,13 @@ export default {
     loadData() {
       if (this.$route.params.id) {
         const id = this.$route.params.id;
-        const idnya = parseInt(id) - 1;
-        const datanya = this.$store.state.rencana.rencana;
-        if (Object.keys(datanya).length > 0) {
-          this.todos.id = datanya[idnya].id;
-          this.todos.judul = datanya[idnya].judul;
-          this.todos.keterangan = datanya[idnya].keterangan;
-          this.todos.selesai = datanya[idnya].selesai;
+        const idnya = parseInt(id);
+        const datanya = this.$store.getters["rencana/getTodoById"](idnya);
+        if (datanya) {
+          this.todos.id = datanya.id;
+          this.todos.judul = datanya.judul;
+          this.todos.keterangan = datanya.keterangan;
+          this.todos.selesai = datanya.selesai;
           this.mode = "editMode";
         } else {
           console.log("data belum di-load");
@@ -98,6 +98,14 @@ export default {
         this.todos.selesai = null;
         this.mode = "addMode";
       }
+    },
+    getFilteredTodo() {
+      const id = this.$route.params.id;
+      const hasil = this.$store.getters["rencana/getTodoById"](id);
+      this.todos.id = hasil.id;
+      this.todos.judul = hasil.judul;
+      this.todos.keterangan = hasil.keterangan;
+      this.todos.selesai = hasil.selesai;
     },
   },
   methods: {
@@ -111,11 +119,6 @@ export default {
       this.$store.dispatch("rencana/delete", { data });
       this.$router.push("FormTodo");
     },
-  },
-  created() {
-    this.$store.dispatch("rencana/ambilData").then((response) => {
-      console.log(`ini adalah data response ${JSON.stringify(response)}`);
-    });
   },
 };
 </script>
