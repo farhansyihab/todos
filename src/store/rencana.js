@@ -7,15 +7,13 @@ const rencana = {
   mutations: {
     setData: (state, value) => (state.rencana = value),
     addData: (state, objDta) => {
-      console.log(`Isi data ${JSON.stringify(objData)}`);
       state.rencana.unshift(objDta);
     },
   },
   actions: {
     ambilData({ commit }) {
       return new Promise((resolve, reject) => {
-        const url = 'http://localhost:3000/rencana';
-        const HTTP = new httpFetch(url, 'GET');
+        const HTTP = new httpFetch();
         HTTP.executeGet()
           .then((response) => {
             commit('setData', response);
@@ -25,54 +23,42 @@ const rencana = {
       });
     },
     post({ dispatch }, objData) {
-      const datanya = JSON.stringify(objData);
-      fetch('http://localhost:3000/rencana', {
-        method: 'POST', // or 'PUT'
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(objData.data),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log('Success:', data);
-          dispatch('ambilData');
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-        });
+      return new Promise((resolve, reject) => {
+        const HTTP = new httpFetch();
+        HTTP.executePost(objData)
+          .then((response) => {
+            dispatch('ambilData');
+            resolve(`Sukses input data ${response}`);
+          })
+          .then((error) => reject(error));
+      });
     },
     update({ dispatch }, objData) {
-      const datanya = JSON.stringify(objData);
-      fetch('http://localhost:3000/rencana/' + objData.data.id, {
-        method: 'PUT', // or 'POST'
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(objData.data),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log('Success:', data);
-          dispatch('ambilData');
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-        });
+      return new Promise((resolve, reject) => {
+        const url = 'http://localhost:3000/rencana/' + objData.data.id;
+        const HTTP = new httpFetch(url, 'PUT');
+        HTTP.executePut(objData.data)
+          .then((response) => {
+            dispatch('ambilData');
+            resolve(response);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
     },
-    delete({ dispatch }, objData) {
-      console.log(`ini adalah obj yang samapai di vuex ${objData.data.id}`);
-      fetch('http://localhost:3000/rencana/' + objData.data.id, {
-        method: 'DELETE',
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log('Success:', data);
-          dispatch('ambilData');
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-        });
+    delete({ dispatch }, id) {
+      return new Promise((resolve, reject) => {
+        const url = 'http://localhost:3000/rencana/' + id.id;
+        const HTTP = new httpFetch(url, 'DELETE');
+        HTTP.executeDelete()
+          .then((response) => {
+            resolve(response);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
     },
   },
   getters: {

@@ -107,17 +107,41 @@ export default {
   },
   methods: {
     simpanData(data) {
-      this.$store.dispatch("rencana/post", { data }).then((response) => {
-        this.snackbarText = `Data sudah disimpan ${response}`;
-        this.snackbar = true;
-      });
+      this.$store
+        .dispatch("rencana/post", { data })
+        .then((response) => {
+          this.snackbarText = `Data sudah disimpan ${response}`;
+          this.snackbar = true;
+        })
+        .catch((error) => {
+          this.snackbarText = `Gagal simpan data ${error}`;
+          this.snackbar = true;
+        });
     },
     updateData(data) {
-      this.$store.dispatch("rencana/update", { data });
+      this.$store
+        .dispatch("rencana/update", { data })
+        .then((response) => {
+          this.snackbarText = `Data sudah disimpan ${response}`;
+          this.snackbar = true;
+        })
+        .catch((error) => {
+          this.snackbarText = `Gagal simpan data ${error}`;
+          this.snackbar = true;
+        });
     },
-    hapusData(data) {
-      this.$store.dispatch("rencana/delete", { data });
-      this.$router.push("FormTodo");
+    hapusData() {
+      const id = this.$route.params.id;
+      this.$store
+        .dispatch("rencana/delete", { id })
+        .then((response) => {
+          this.snackbarText = `Data sudah dihapus : ${response}`;
+          this.snackbar = true;
+        })
+        .catch((error) => {
+          this.snackbarText = `Gagal hapus data ${error}`;
+          this.snackbar = true;
+        });
     },
   },
 };
