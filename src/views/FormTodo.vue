@@ -59,12 +59,14 @@
         </v-row>
       </v-form>
     </v-card>
-    <div hidden>{{ loadData }}</div>
+    <v-snackbar v-model="snackbar" :timeout="timeout">{{
+      snackbarText
+    }}</v-snackbar>
+    <div hidden>{{ getFilteredTodo }}</div>
   </v-container>
 </template>
 
 <script>
-import { mapActions } from "vuex";
 export default {
   name: "FormTodo",
   data() {
@@ -75,14 +77,16 @@ export default {
         selesai: false,
       },
       mode: "addMode",
+      snackbar: false,
+      timeout: 2000,
+      snackbarText: null,
     };
   },
   computed: {
-    loadData() {
-      if (this.$route.params.id) {
-        const id = this.$route.params.id;
-        const idnya = parseInt(id);
-        const datanya = this.$store.getters["rencana/getTodoById"](idnya);
+    getFilteredTodo() {
+      const id = this.$route.params.id;
+      if (id) {
+        const datanya = this.$store.getters["rencana/getTodoById"](id);
         if (datanya) {
           this.todos.id = datanya.id;
           this.todos.judul = datanya.judul;
@@ -90,7 +94,8 @@ export default {
           this.todos.selesai = datanya.selesai;
           this.mode = "editMode";
         } else {
-          console.log("data belum di-load");
+          this.snackbarText = "Data belum diload";
+          this.snackbar = true;
         }
       } else {
         this.todos.judul = null;
@@ -99,18 +104,13 @@ export default {
         this.mode = "addMode";
       }
     },
-    getFilteredTodo() {
-      const id = this.$route.params.id;
-      const hasil = this.$store.getters["rencana/getTodoById"](id);
-      this.todos.id = hasil.id;
-      this.todos.judul = hasil.judul;
-      this.todos.keterangan = hasil.keterangan;
-      this.todos.selesai = hasil.selesai;
-    },
   },
   methods: {
     simpanData(data) {
-      this.$store.dispatch("rencana/post", { data });
+      this.$store.dispatch("rencana/post", { data }).then((response) => {
+        this.snackbarText = `Data sudah disimpan ${response}`;
+        this.snackbar = true;
+      });
     },
     updateData(data) {
       this.$store.dispatch("rencana/update", { data });

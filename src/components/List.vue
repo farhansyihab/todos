@@ -50,12 +50,9 @@ export default {
       this.loadData();
       this.showList = !this.showList;
     },
-    loadData: async function () {
-      let datanya;
-      await this.$store.dispatch("rencana/ambilData").then(function (response) {
-        datanya = response;
-      });
-      this.rencana = datanya;
+    loadData: function () {
+      this.rencana = this.$store.getters["rencana/getTodo"];
+      console.log(`log dari listvue ${JSON.stringify(this.rencana)}`);
     },
   },
 };

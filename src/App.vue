@@ -23,5 +23,10 @@ import List from "./components/List";
 export default {
   data: () => ({ drawer: null }),
   components: { Menu, List },
+  mounted() {
+    this.$store.dispatch("rencana/ambilData").then(function (response) {
+      console.dir(response);
+    });
+  },
 };
 </script>

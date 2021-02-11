@@ -26,8 +26,6 @@ const rencana = {
     },
     post({ dispatch }, objData) {
       const datanya = JSON.stringify(objData);
-      // console.log(`ini adalah data yang samapai di vuex ${datanya}`);
-      // console.log(`ini adalah obj yang samapai di vuex ${objData}`);
       fetch('http://localhost:3000/rencana', {
         method: 'POST', // or 'PUT'
         headers: {
@@ -46,8 +44,6 @@ const rencana = {
     },
     update({ dispatch }, objData) {
       const datanya = JSON.stringify(objData);
-      // console.log(`ini adalah data yang samapai di vuex ${datanya}`);
-      // console.log(`ini adalah obj yang samapai di vuex ${objData}`);
       fetch('http://localhost:3000/rencana/' + objData.data.id, {
         method: 'PUT', // or 'POST'
         headers: {
@@ -84,6 +80,9 @@ const rencana = {
       const intId = parseInt(JSON.stringify(id));
       const objData = state.rencana.find((rencana) => rencana.id === intId);
       return objData;
+    },
+    getTodo: (state) => {
+      return state.rencana;
     },
   },
 };
