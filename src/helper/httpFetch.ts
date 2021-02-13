@@ -1,31 +1,35 @@
 class httpFetch {
+  baseUrl : string ;
+  action : string ;
+  sukses : boolean;
+
   constructor(url = 'http://localhost:3000/rencana', action = 'GET') {
-    this._url = url;
-    this._action = action;
-    this._sukses = false;
+    this.baseUrl = url;
+    this.action = action;
+    this.sukses = false;
   }
 
-  get httpUrl() {
-    return this._url;
+  get httpUrl():string {
+    return this.baseUrl;
   }
 
-  get httpAction() {
-    return this._action;
+  get httpAction():string {
+    return this.action;
   }
 
-  get success() {
-    return this._sukses;
+  get success():boolean {
+    return this.sukses;
   }
 
   set success(sukses) {
-    this._sukses = sukses;
+    this.sukses = sukses;
   }
 
   executeGet() {
-    this._action = 'GET';
+    this.action = 'GET';
     return new Promise((resolve, reject) => {
-      fetch(this._url, {
-        method: this._action,
+      fetch(this.baseUrl, {
+        method: this.action,
         headers: {
           'Content-Type': 'application/json',
         },
@@ -43,7 +47,7 @@ class httpFetch {
   executePost(objData) {
     return new Promise((resolve, reject) => {
       const datanya = JSON.stringify(objData);
-      fetch(this._url, {
+      fetch(this.baseUrl, {
         method: 'POST', // or 'PUT'
         headers: {
           'Content-Type': 'application/json',
@@ -67,7 +71,7 @@ class httpFetch {
   executePut(objData) {
     return new Promise((resolve, reject) => {
       const datanya = JSON.stringify(objData);
-      fetch(this._url, {
+      fetch(this.baseUrl, {
         method: 'PUT', // or 'POST'
         headers: {
           'Content-Type': 'application/json',
@@ -88,7 +92,7 @@ class httpFetch {
 
   executeDelete() {
     return new Promise((resolve, reject) => {
-      fetch(this._url, {
+      fetch(this.baseUrl, {
         method: 'DELETE',
       })
         .then((response) => response.json())

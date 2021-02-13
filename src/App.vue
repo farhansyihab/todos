@@ -24,9 +24,9 @@ export default {
   data: () => ({ drawer: null }),
   components: { Menu, List },
   mounted() {
-    this.$store.dispatch("rencana/ambilData").then(function (response) {
-      console.dir(response);
-    });
+    this.$store
+      .dispatch("rencana/ambilData")
+      .then((response) => JSON.stringify(response));
   },
 };
 </script>

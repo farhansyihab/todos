@@ -52,7 +52,7 @@ export default {
     },
     loadData: function () {
       this.rencana = this.$store.getters["rencana/getTodo"];
-      console.log(`log dari listvue ${JSON.stringify(this.rencana)}`);
+      // console.log(`log dari listvue ${JSON.stringify(this.rencana)}`);
     },
   },
 };
