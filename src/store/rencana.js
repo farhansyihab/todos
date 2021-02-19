@@ -13,45 +13,47 @@ const rencana = {
   actions: {
     ambilData({ commit }) {
       return new Promise((resolve, reject) => {
-        const HTTP = new httpFetch();
-        HTTP.executeGet()
+        const HTTP = new httpFetch('GET');
+        HTTP.eksekusi()
           .then((response) => {
             commit('setData', response);
             resolve(response);
           })
-          .catch((response) => console.log(`Error : ${response}`));
+          .catch((response) => console.log(`Gagal ambil data : ${response}`));
       });
     },
     post({ dispatch }, objData) {
       return new Promise((resolve, reject) => {
-        const HTTP = new httpFetch();
-        HTTP.executePost(objData)
+        const HTTP = new httpFetch('POST');
+        HTTP.objData = objData;
+        HTTP.eksekusi()
           .then((response) => {
             dispatch('ambilData');
             resolve(`Sukses input data ${response}`);
           })
-          .then((error) => reject(error));
+          .catch((error) => reject(` Gagal input data ${error}`));
       });
     },
     update({ dispatch }, objData) {
       return new Promise((resolve, reject) => {
         const url = 'http://localhost:3000/rencana/' + objData.data.id;
-        const HTTP = new httpFetch(url, 'PUT');
-        HTTP.executePut(objData.data)
+        const HTTP = new httpFetch('PUT', url);
+        HTTP.objData = objData;
+        HTTP.eksekusi()
           .then((response) => {
             dispatch('ambilData');
             resolve(response);
           })
           .catch((error) => {
-            reject(error);
+            reject(` Gagal update data ${error}`);
           });
       });
     },
     delete({ dispatch }, id) {
       return new Promise((resolve, reject) => {
         const url = 'http://localhost:3000/rencana/' + id.id;
-        const HTTP = new httpFetch(url, 'DELETE');
-        HTTP.executeDelete()
+        const HTTP = new httpFetch('DELETE', url);
+        HTTP.eksekusi()
           .then((response) => {
             resolve(response);
           })

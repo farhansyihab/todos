@@ -44,6 +44,5 @@
     "src/views/*",
     "src/views/*",
     "src/App.vue",
-    "src/main.js",
   ]
 }

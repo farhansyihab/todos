@@ -27,7 +27,7 @@
     {
       "judul": "Belajar Git",
       "keterangan": "Belajar Git terutama GitHub",
-      "selesai": true,
+      "selesai": false,
       "id": 5
     }
   ]

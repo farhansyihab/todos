@@ -122,11 +122,11 @@ export default {
       this.$store
         .dispatch("rencana/update", { data })
         .then((response) => {
-          this.snackbarText = `Data sudah disimpan ${response}`;
+          this.snackbarText = `Data sudah diupdate ${response}`;
           this.snackbar = true;
         })
         .catch((error) => {
-          this.snackbarText = `Gagal simpan data ${error}`;
+          this.snackbarText = `Gagal update data ${error}`;
           this.snackbar = true;
         });
     },

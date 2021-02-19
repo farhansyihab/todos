@@ -1,111 +1,42 @@
-class httpFetch {
-  baseUrl : string ;
-  action : string ;
-  sukses : boolean;
+import penentuExecute from './penentuExecute';
 
-  constructor(url = 'http://localhost:3000/rencana', action = 'GET') {
-    this.baseUrl = url;
-    this.action = action;
-    this.sukses = false;
-  }
+class httpFetch{
+    private _tipe: string;
+    private _url: string;
+    private _sukes: boolean;
+    private _objData:any;
+    
+    constructor(tipe:string, url:string){
+        this._tipe = tipe;
+        this._url = url;
+    }
 
-  get httpUrl():string {
-    return this.baseUrl;
-  }
+    set objData(objData:any){
+      this._objData = objData;
+    }
 
-  get httpAction():string {
-    return this.action;
-  }
+    get objData():any{
+      return this._objData ;
+    }
 
-  get success():boolean {
-    return this.sukses;
-  }
-
-  set success(sukses) {
-    this.sukses = sukses;
-  }
-
-  executeGet() {
-    this.action = 'GET';
-    return new Promise((resolve, reject) => {
-      fetch(this.baseUrl, {
-        method: this.action,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-        .then((response) => response.json())
-        .then((json) => {
-          resolve(json);
-        })
-        .catch((err) => {
-          reject(err);
+    eksekusi():any{
+        const ambilData = penentuExecute.tentukan(this._url, this._tipe);
+        if(this._objData){
+          ambilData.setobjData(this._objData);
+        }
+        return new Promise((resolve, reject) => {
+            ambilData.execute().then((response) => resolve(response)).catch((error) => reject(error));
         });
-    });
-  }
+    }
 
-  executePost(objData) {
-    return new Promise((resolve, reject) => {
-      const datanya = JSON.stringify(objData);
-      fetch(this.baseUrl, {
-        method: 'POST', // or 'PUT'
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(objData.data),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          this.success = true;
-          resolve(JSON.stringify(data));
-          return data;
-        })
-        .catch((error) => {
-          reject(error);
-          this.success = false;
-          return error;
-        });
-    });
-  }
+    get success():boolean {
+        return this._sukes;
+    }
+    
+    set success(sukses:boolean) {
+        this._sukes = sukses;
+    }
 
-  executePut(objData) {
-    return new Promise((resolve, reject) => {
-      const datanya = JSON.stringify(objData);
-      fetch(this.baseUrl, {
-        method: 'PUT', // or 'POST'
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: datanya,
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          this.success = true;
-          resolve(JSON.stringify(data));
-        })
-        .catch((error) => {
-          this.success = false;
-          reject(`Berita error ${error}`);
-        });
-    });
-  }
-
-  executeDelete() {
-    return new Promise((resolve, reject) => {
-      fetch(this.baseUrl, {
-        method: 'DELETE',
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          this.success = true;
-          resolve(JSON.stringify(data));
-        })
-        .catch((error) => {
-          this.success = false;
-          reject(`Berita error ${error}`);
-        });
-    });
-  }
 }
 
-export default httpFetch;
+export default httpFetch ;

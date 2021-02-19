@@ -25,6 +25,13 @@
             >
           </v-list-item-content>
         </v-list-item>
+        <v-list-item>
+          <v-list-item-content>
+            <router-link :to="{ name: 'Crud' }" class="arahLink"
+              ><v-icon>mdi-table</v-icon> CRUD Table</router-link
+            >
+          </v-list-item-content>
+        </v-list-item>
       </v-list-item-group>
     </v-list>
   </v-card>
